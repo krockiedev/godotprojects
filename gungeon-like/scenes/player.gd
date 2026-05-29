@@ -7,11 +7,20 @@ extends CharacterBody2D
 enum State {NORMAL, DODGING}
 var movement = true
 @export var can_shoot = true
-const SPEED = 300.0
-const DODGE_SPEED = 500.0
-const DODGE_DURATION = 0.35
+var can_roll = true
+@export var SPEED = 300.0
+@export var DODGE_SPEED = 500.0
+@export var DODGE_DURATION = 0.35
 
+
+@export var max_dodges = 3
+@export var recharge_time = 3.0
 @onready var dodge_timer: Timer = $Dodge
+@onready var dodge_refresh: Timer = $DodgeRefresh
+@onready var fatigue: Timer = $Fatigue
+
+var active_cooldowns: Array[float] = []
+@onready var debug_dodges: Label = $UI/DebugDodges
 
 var current_state: State = State.NORMAL
 var roll_direction := Vector2.ZERO
@@ -69,6 +78,15 @@ func blank():
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	
 func _physics_process(delta: float) -> void:
+	var current_dodges = max_dodges - active_cooldowns.size()
+	debug_dodges.text = "Dodges: " + str(current_dodges)
+	
+	for i in range(active_cooldowns.size() - 1, -1, -1):
+		active_cooldowns[i] -= delta
+		
+		if active_cooldowns[i] <= 0.0:
+			active_cooldowns.remove_at(i)
+			
 	if hitbox.disabled:
 		sprite.modulate = Color(0.5,1,0.5,0.5)
 	else:
@@ -87,6 +105,12 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func dodge(direction):
+	var current_dodges = max_dodges - active_cooldowns.size()
+	if current_dodges <= 0:
+		return
+	else:
+		active_cooldowns.append(recharge_time)
+		
 	hitbox.disabled = true
 	current_state = State.DODGING
 	roll_direction = direction.normalized()

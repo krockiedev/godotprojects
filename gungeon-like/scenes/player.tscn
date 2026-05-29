@@ -50,7 +50,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
-size = Vector2(28, 5)
+size = Vector2(6, 2)
 
 [node name="Player" type="CharacterBody2D" unique_id=371891265 groups=["player"]]
 collision_layer = 2
@@ -76,13 +76,23 @@ animation = &"shoot"
 frame = 2
 frame_progress = 1.0
 
-[node name="Dodge" type="Timer" parent="." unique_id=1053788211]
-wait_time = 0.35
-one_shot = true
+[node name="DebugDodges" type="Label" parent="UI" unique_id=1611923020]
+offset_left = 31.0
+offset_top = 26.0
+offset_right = 155.0
+offset_bottom = 57.0
+text = "Dodges: "
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1470117917]
 collision_layer = 4
 
 [node name="Feet" type="CollisionShape2D" parent="Area2D" unique_id=1258069208]
-position = Vector2(0, 25.5)
+position = Vector2(0, 28)
 shape = SubResource("RectangleShape2D_qhqgy")
+
+[node name="Dodge" type="Timer" parent="." unique_id=1053788211]
+wait_time = 0.35
+one_shot = true
+
+[node name="Fatigue" type="Timer" parent="." unique_id=991159673]
+one_shot = true
