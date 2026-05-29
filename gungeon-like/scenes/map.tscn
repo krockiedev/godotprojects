@@ -233,3 +233,5 @@ zone_size = Vector2(30, 720)
 position = Vector2(1296, 360)
 script = SubResource("GDScript_2klcf")
 zone_size = Vector2(30, 720)
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=1061393597 groups=["bullets"]]

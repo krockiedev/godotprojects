@@ -28,19 +28,10 @@ var roll_direction := Vector2.ZERO
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	dodge_timer.timeout.connect(on_dodge_finished)
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if can_shoot:
-				shoot()
-			else:
-				blank()
 	
 func shoot():
 	var crosshair_tween
 	crosshair.play("shoot")
-	
 	if crosshair_tween and crosshair_tween.is_valid():
 		crosshair_tween.kill()
 		
@@ -60,7 +51,7 @@ func shoot():
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT) # TRANS_BACK adds a tiny bounce!
 	crosshair_tween.parallel().tween_property(crosshair, "rotation", 0.0, 0.15)\
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-
+	
 func blank():
 	var crosshair_tween
 	

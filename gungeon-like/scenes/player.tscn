@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b8djflycqlkac" path="res://icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dcrnvs0dsvkkd" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://exyobquhke2p" path="res://assets/Crosshair.png" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://calb8a1mv0spl" path="res://scenes/gun.tscn" id="4_dqkch"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -96,3 +97,5 @@ one_shot = true
 
 [node name="Fatigue" type="Timer" parent="." unique_id=991159673]
 one_shot = true
+
+[node name="Gun" parent="." unique_id=1019589114 instance=ExtResource("4_dqkch")]
