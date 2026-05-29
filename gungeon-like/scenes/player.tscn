@@ -49,7 +49,12 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
+size = Vector2(28, 5)
+
 [node name="Player" type="CharacterBody2D" unique_id=371891265 groups=["player"]]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_g2els")
 can_shoot = false
 
@@ -70,3 +75,14 @@ sprite_frames = SubResource("SpriteFrames_smehm")
 animation = &"shoot"
 frame = 2
 frame_progress = 1.0
+
+[node name="Dodge" type="Timer" parent="." unique_id=1053788211]
+wait_time = 0.35
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1470117917]
+collision_layer = 4
+
+[node name="Feet" type="CollisionShape2D" parent="Area2D" unique_id=1258069208]
+position = Vector2(0, 25.5)
+shape = SubResource("RectangleShape2D_qhqgy")

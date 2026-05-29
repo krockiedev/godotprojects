@@ -4,6 +4,204 @@
 [ext_resource type="PackedScene" uid="uid://fj1dv1xgdqmk" path="res://scenes/player.tscn" id="2_paxxb"]
 [ext_resource type="PackedScene" uid="uid://pdm35u51bvb2" path="res://scenes/fall_border.tscn" id="3_gldc4"]
 
+[sub_resource type="GDScript" id="GDScript_gldc4"]
+resource_local_to_scene = true
+script/source = "@tool
+extends Area2D
+
+@export var zone_size: Vector2 = Vector2(64, 64):
+	set(value):
+		zone_size = value
+		update_collision_shape()
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
+func _ready() -> void:
+	update_collision_shape()
+
+func update_collision_shape() -> void:
+	if not is_inside_tree() or not has_node(\"CollisionShape2D\"): 
+		return
+		
+	var shape_node = $CollisionShape2D
+
+	if not shape_node.shape is RectangleShape2D:
+		shape_node.shape = RectangleShape2D.new()
+	else:
+		shape_node.shape = shape_node.shape.duplicate()
+
+	shape_node.shape.size = zone_size
+
+func reset_player(player):
+	if Engine.is_editor_hint(): return 
+	
+	player.position = Vector2(640, 360)
+	player.scale = Vector2(3.0, 3.0)
+	player.modulate = Color(1, 1, 1, 1)
+	player.sprite.offset.y = 20.0
+	var spawn_tween = get_tree().create_tween().set_parallel(true)
+	spawn_tween.tween_property(player, \"scale\", Vector2(1.0, 1.0), 3)\\
+		.set_trans(Tween.TRANS_EXPO)
+	spawn_tween.tween_property(player.sprite, \"offset:y\", 0, 3)
+	
+	await spawn_tween.finished
+	player.movement = true
+
+func fall_animation(player):
+	if Engine.is_editor_hint(): return
+	
+	var fall_tween = get_tree().create_tween().set_parallel(true)
+	fall_tween.tween_property(player, \"scale\", Vector2(0.0, 0.0), 0.5)\\
+		.set_trans(Tween.TRANS_QUAD)\\
+		.set_ease(Tween.EASE_IN)
+	fall_tween.tween_property(player, \"modulate\", Color(0.7, 0.7, 0.7, 1), 0.5)
+	
+	await fall_tween.finished
+	reset_player(player)
+
+func _on_body_entered(foot: Area2D) -> void:
+	if Engine.is_editor_hint(): return
+	print(\"Entered\")
+	var body = foot.get_parent()
+	
+	if body and body.is_in_group(\"player\"):
+		body.velocity = Vector2.ZERO
+		body.movement = false
+		fall_animation(body)
+"
+
+[sub_resource type="GDScript" id="GDScript_0cso3"]
+resource_local_to_scene = true
+script/source = "@tool
+extends Area2D
+
+@export var zone_size: Vector2 = Vector2(64, 64):
+	set(value):
+		zone_size = value
+		update_collision_shape()
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
+func _ready() -> void:
+	update_collision_shape()
+
+func update_collision_shape() -> void:
+	if not is_inside_tree() or not has_node(\"CollisionShape2D\"): 
+		return
+		
+	var shape_node = $CollisionShape2D
+
+	if not shape_node.shape is RectangleShape2D:
+		shape_node.shape = RectangleShape2D.new()
+	else:
+		shape_node.shape = shape_node.shape.duplicate()
+
+	shape_node.shape.size = zone_size
+
+func reset_player(player):
+	if Engine.is_editor_hint(): return 
+	
+	player.position = Vector2(640, 360)
+	player.scale = Vector2(3.0, 3.0)
+	player.modulate = Color(1, 1, 1, 1)
+	player.sprite.offset.y = 20.0
+	var spawn_tween = get_tree().create_tween().set_parallel(true)
+	spawn_tween.tween_property(player, \"scale\", Vector2(1.0, 1.0), 3)\\
+		.set_trans(Tween.TRANS_EXPO)
+	spawn_tween.tween_property(player.sprite, \"offset:y\", 0, 3)
+	
+	await spawn_tween.finished
+	player.movement = true
+
+func fall_animation(player):
+	if Engine.is_editor_hint(): return
+	
+	var fall_tween = get_tree().create_tween().set_parallel(true)
+	fall_tween.tween_property(player, \"scale\", Vector2(0.0, 0.0), 0.5)\\
+		.set_trans(Tween.TRANS_QUAD)\\
+		.set_ease(Tween.EASE_IN)
+	fall_tween.tween_property(player, \"modulate\", Color(0.7, 0.7, 0.7, 1), 0.5)
+	
+	await fall_tween.finished
+	reset_player(player)
+
+func _on_body_entered(foot: Area2D) -> void:
+	if Engine.is_editor_hint(): return
+	print(\"Entered\")
+	var body = foot.get_parent()
+	
+	if body and body.is_in_group(\"player\"):
+		body.velocity = Vector2.ZERO
+		body.movement = false
+		fall_animation(body)
+"
+
+[sub_resource type="GDScript" id="GDScript_2klcf"]
+resource_local_to_scene = true
+script/source = "@tool
+extends Area2D
+
+@export var zone_size: Vector2 = Vector2(64, 64):
+	set(value):
+		zone_size = value
+		update_collision_shape()
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
+func _ready() -> void:
+	update_collision_shape()
+
+func update_collision_shape() -> void:
+	if not is_inside_tree() or not has_node(\"CollisionShape2D\"): 
+		return
+		
+	var shape_node = $CollisionShape2D
+
+	if not shape_node.shape is RectangleShape2D:
+		shape_node.shape = RectangleShape2D.new()
+	else:
+		shape_node.shape = shape_node.shape.duplicate()
+
+	shape_node.shape.size = zone_size
+
+func reset_player(player):
+	if Engine.is_editor_hint(): return 
+	
+	player.position = Vector2(640, 360)
+	player.scale = Vector2(3.0, 3.0)
+	player.modulate = Color(1, 1, 1, 1)
+	player.sprite.offset.y = 20.0
+	var spawn_tween = get_tree().create_tween().set_parallel(true)
+	spawn_tween.tween_property(player, \"scale\", Vector2(1.0, 1.0), 3)\\
+		.set_trans(Tween.TRANS_EXPO)
+	spawn_tween.tween_property(player.sprite, \"offset:y\", 0, 3)
+	
+	await spawn_tween.finished
+	player.movement = true
+
+func fall_animation(player):
+	if Engine.is_editor_hint(): return
+	
+	var fall_tween = get_tree().create_tween().set_parallel(true)
+	fall_tween.tween_property(player, \"scale\", Vector2(0.0, 0.0), 0.5)\\
+		.set_trans(Tween.TRANS_QUAD)\\
+		.set_ease(Tween.EASE_IN)
+	fall_tween.tween_property(player, \"modulate\", Color(0.7, 0.7, 0.7, 1), 0.5)
+	
+	await fall_tween.finished
+	reset_player(player)
+
+func _on_body_entered(foot: Area2D) -> void:
+	if Engine.is_editor_hint(): return
+	print(\"Entered\")
+	var body = foot.get_parent()
+	
+	if body and body.is_in_group(\"player\"):
+		body.velocity = Vector2.ZERO
+		body.movement = false
+		fall_animation(body)
+"
+
 [node name="Map" type="Node2D" unique_id=429894988]
 
 [node name="Platform" type="Sprite2D" parent="." unique_id=829914537]
@@ -12,10 +210,26 @@ texture = ExtResource("1_4xfga")
 centered = false
 
 [node name="Player" parent="." unique_id=371891265 instance=ExtResource("2_paxxb")]
+position = Vector2(640, 360)
+can_shoot = true
 
 [node name="Borders" type="Node2D" parent="." unique_id=2053906787]
 
-[node name="FallBorder" parent="Borders" unique_id=1610036652 instance=ExtResource("3_gldc4")]
+[node name="FallBorder1" parent="Borders" unique_id=1610036652 instance=ExtResource("3_gldc4")]
+position = Vector2(640, -16)
+zone_size = Vector2(1280, 30)
 
-[node name="FallBorder3" parent="Borders" unique_id=1241007147 instance=ExtResource("3_gldc4")]
-position = Vector2(0, 720)
+[node name="FallBorder2" parent="Borders" unique_id=354375771 instance=ExtResource("3_gldc4")]
+position = Vector2(640, 736)
+script = SubResource("GDScript_gldc4")
+zone_size = Vector2(1280, 30)
+
+[node name="FallBorder3" parent="Borders" unique_id=1585449224 instance=ExtResource("3_gldc4")]
+position = Vector2(-16, 360)
+script = SubResource("GDScript_0cso3")
+zone_size = Vector2(30, 720)
+
+[node name="FallBorder4" parent="Borders" unique_id=1612441708 instance=ExtResource("3_gldc4")]
+position = Vector2(1296, 360)
+script = SubResource("GDScript_2klcf")
+zone_size = Vector2(30, 720)
