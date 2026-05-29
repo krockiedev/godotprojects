@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://8nra601ed5w7"]
+
+[ext_resource type="Texture2D" uid="uid://dhmyitarypj77" path="res://assets/placeholder_kit/16x16_red.png" id="1_4xfga"]
+[ext_resource type="PackedScene" uid="uid://fj1dv1xgdqmk" path="res://scenes/player.tscn" id="2_paxxb"]
+[ext_resource type="PackedScene" uid="uid://pdm35u51bvb2" path="res://scenes/fall_border.tscn" id="3_gldc4"]
+
+[node name="Map" type="Node2D" unique_id=429894988]
+
+[node name="Platform" type="Sprite2D" parent="." unique_id=829914537]
+scale = Vector2(80, 45)
+texture = ExtResource("1_4xfga")
+centered = false
+
+[node name="Player" parent="." unique_id=371891265 instance=ExtResource("2_paxxb")]
+
+[node name="Borders" type="Node2D" parent="." unique_id=2053906787]
+
+[node name="FallBorder" parent="Borders" unique_id=1610036652 instance=ExtResource("3_gldc4")]
+
+[node name="FallBorder3" parent="Borders" unique_id=1241007147 instance=ExtResource("3_gldc4")]
+position = Vector2(0, 720)

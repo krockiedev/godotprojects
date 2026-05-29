@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://fj1dv1xgdqmk"]
+
+[ext_resource type="Texture2D" uid="uid://b8djflycqlkac" path="res://icon.svg" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://dcrnvs0dsvkkd" path="res://scenes/player.gd" id="1_g2els"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 16.0
+height = 56.0
+
+[node name="Player" type="CharacterBody2D" unique_id=371891265 groups=["player"]]
+script = ExtResource("1_g2els")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=35715295]
+scale = Vector2(0.23437499, 0.453125)
+texture = ExtResource("1_3vyb7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1833981589]
+shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=111459423]
+position_smoothing_enabled = true
