@@ -53,7 +53,6 @@ func fall_animation(player):
 
 func _on_body_entered(foot: Area2D) -> void:
 	if Engine.is_editor_hint(): return
-	print("Entered")
 	var body = foot.get_parent()
 	
 	if body and body.is_in_group("player"):
