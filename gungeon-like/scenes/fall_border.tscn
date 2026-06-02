@@ -2,14 +2,22 @@
 
 [ext_resource type="Script" uid="uid://c5vh6xal85en6" path="res://scripts/fall_border.gd" id="1_6c03t"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_70ewr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6c03t"]
+size = Vector2(64, 64)
 
 [node name="FallBorder" type="Area2D" unique_id=1610036652]
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_6c03t")
+hazard = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1977444025]
-shape = SubResource("RectangleShape2D_70ewr")
+shape = SubResource("RectangleShape2D_6c03t")
+
+[node name="LavaTimer" type="Timer" parent="." unique_id=494668802]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="LavaTimer" to="." method="lava_burn"]

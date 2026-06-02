@@ -1,12 +1,17 @@
 @tool
 extends Area2D
 
+enum HazardType {FALL, LAVA, SPIKE}
+
+@export var hazard: HazardType = HazardType.FALL
+
 @export var zone_size: Vector2 = Vector2(64, 64):
 	set(value):
 		zone_size = value
 		update_collision_shape()
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var lava_timer: Timer = $LavaTimer
 
 func _ready() -> void:
 	update_collision_shape()
@@ -51,11 +56,43 @@ func fall_animation(player):
 	await fall_tween.finished
 	reset_player(player)
 
+func fall_player(body):
+	body.velocity = Vector2.ZERO
+	body.movement = false
+	fall_animation(body)
+	GameState.player_health -= 1
+
+func lava_player(body):
+	if lava_timer.is_stopped():
+		lava_timer.start()
+
 func _on_body_entered(foot: Area2D) -> void:
 	if Engine.is_editor_hint(): return
 	var body = foot.get_parent()
 	
 	if body and body.is_in_group("player"):
-		body.velocity = Vector2.ZERO
-		body.movement = false
-		fall_animation(body)
+		match hazard:
+			HazardType.FALL:
+				fall_player(body)
+			HazardType.LAVA:
+				lava_player(body)
+			HazardType.SPIKE:
+				fall_player(body)
+
+
+
+func _on_body_exited(foot: Area2D) -> void:
+	if Engine.is_editor_hint(): return
+	var body = foot.get_parent()
+	
+	if body and body.is_in_group("player"):
+		match hazard:
+			HazardType.FALL:
+				fall_player(body)
+			HazardType.LAVA:
+				lava_timer.stop()
+			HazardType.SPIKE:
+				fall_player(body)
+	
+func lava_burn() -> void:
+	GameState.player_health -= 1
