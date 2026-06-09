@@ -54,13 +54,13 @@ func fall_animation(player):
 	fall_tween.tween_property(player, "modulate", Color(0.7, 0.7, 0.7, 1), 0.5)
 	
 	await fall_tween.finished
+	GameState.player_health -= 1
 	reset_player(player)
 
 func fall_player(body):
 	body.velocity = Vector2.ZERO
 	body.movement = false
 	fall_animation(body)
-	GameState.player_health -= 1
 
 func lava_player(body):
 	if lava_timer.is_stopped():
@@ -74,12 +74,6 @@ func _on_body_entered(foot: Area2D) -> void:
 		match hazard:
 			HazardType.FALL:
 				fall_player(body)
-			HazardType.LAVA:
-				lava_player(body)
-			HazardType.SPIKE:
-				fall_player(body)
-
-
 
 func _on_body_exited(foot: Area2D) -> void:
 	if Engine.is_editor_hint(): return
@@ -88,11 +82,6 @@ func _on_body_exited(foot: Area2D) -> void:
 	if body and body.is_in_group("player"):
 		match hazard:
 			HazardType.FALL:
-				fall_player(body)
-			HazardType.LAVA:
-				lava_timer.stop()
-			HazardType.SPIKE:
-				fall_player(body)
-	
+				pass
 func lava_burn() -> void:
 	GameState.player_health -= 1

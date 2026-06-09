@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://b2qeuixfd6fr1"]
+
+[ext_resource type="PackedScene" uid="uid://1g7f8s33dy46" path="res://3D/character.tscn" id="1_jbwnq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pnn26"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_jbwnq"]
+sky_material = SubResource("ProceduralSkyMaterial_pnn26")
+
+[sub_resource type="Environment" id="Environment_2jayf"]
+background_mode = 2
+sky = SubResource("Sky_jbwnq")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wpmxa"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Node3D" unique_id=1489383936]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=813675320]
+environment = SubResource("Environment_2jayf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1930778927]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1590808960]
+use_collision = true
+size = Vector3(200, 0.5, 200)
+material = SubResource("StandardMaterial3D_wpmxa")
+
+[node name="Kenny" parent="." unique_id=927831329 instance=ExtResource("1_jbwnq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7869124, 0)
+
+[node name="Bullet Holder" type="Node3D" parent="." unique_id=1458769076 groups=["bullets"]]

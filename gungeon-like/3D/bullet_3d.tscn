@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://3tucrctc3pd6"]
+
+[ext_resource type="Script" uid="uid://ble3sjkr7f7wi" path="res://3D/bullet_3d.gd" id="1_8fq5r"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kvmu1"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8fq5r"]
+top_radius = 0.05
+bottom_radius = 0.09
+height = 0.2
+
+[node name="Bullet3D" type="Area3D" unique_id=163911103]
+script = ExtResource("1_8fq5r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=421488487]
+shape = SubResource("SphereShape3D_kvmu1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2129615855]
+mesh = SubResource("CylinderMesh_8fq5r")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=245551441]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="left_screen"]

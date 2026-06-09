@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dq44n1udl7gwu"]
+
+[ext_resource type="Script" uid="uid://kcfbvnbt5ijk" path="res://3D/gun3D.gd" id="1_thevb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mkws2"]
+size = Vector3(0.24, 0.24, 1.735)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bxvki"]
+size = Vector3(0.2, 0.895, 0.325)
+
+[node name="Gun" type="MeshInstance3D" unique_id=1924797915]
+mesh = SubResource("BoxMesh_mkws2")
+script = ExtResource("1_thevb")
+
+[node name="Handle" type="MeshInstance3D" parent="." unique_id=774986487]
+transform = Transform3D(1, 0, 0, 0, 0.9644422, 0.26429388, 0, -0.26429388, 0.9644422, 0, -0.35379338, 0.6455529)
+mesh = SubResource("BoxMesh_bxvki")
